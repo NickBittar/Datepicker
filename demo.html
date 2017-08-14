@@ -1,0 +1,57 @@
+<html>
+	<head>
+		<style>
+			* {
+				font-family: verdana;
+				padding: 0;
+				margin: 0;
+			}
+			body {
+				background-color: #f1f1f1;
+			}
+			.page {
+				width: 100%;
+				min-height: 100%;
+			}
+			.container {
+				background-color: #ffffff;
+				width: 80%;
+				min-width: 542px;
+				min-height: 256px;
+				margin: 20px auto;
+			}
+			.panel {
+				border: 1px solid #cfcfcf;
+				box-shadow: 0px 1px 2px rgba(0,0,0,0.5);
+				border-radius: 5px;
+				
+				padding: 20px 15px;
+			}
+		</style>
+		<link rel="stylesheet" type="text/css" href="src/datepicker.css">
+	</head>
+	<body>
+		<div class="page">
+			<div class="container panel">
+				<input id="date-input" class="datepicker" />
+				<input id="date-input2" class="datepicker" />
+			</div>
+		</div>
+	</body>
+	<script src="src/datepicker.js"></script>
+	<script type="text/javascript">
+		document.querySelectorAll('.datepicker').forEach(function(i) {
+			datepicker.create(i, { 
+				selectedDate: new Date(2017,06,02),
+				minDate: new Date(1990,5,15), 
+				maxDate: new Date(2100, 2, 8), 
+				defaultDate: new Date(2017, 04, 2), 
+				hideCalendarOnClickOff: true,
+				hideCalendarOnSelect: true,
+				startViewMode: 'day',
+				todayButton: true,
+				darkMode: false,
+			});
+		});
+	</script>
+</html>
