@@ -40,8 +40,9 @@
 	</body>
 	<script src="src/datepicker.js"></script>
 	<script type="text/javascript">
-		document.querySelectorAll('.datepicker').forEach(function(i) {
-			datepicker.create(i, { 
+		var dateInputs = document.querySelectorAll('input.datepicker');
+		for(var i = 0; i < dateInputs.length; i++) {
+			datepicker.create(dateInputs[i], { 
 				selectedDate: new Date(2017,06,02),
 				minDate: new Date(1990,5,15), 
 				maxDate: new Date(2100, 2, 8), 
@@ -51,7 +52,8 @@
 				startViewMode: 'day',
 				todayButton: true,
 				darkMode: false,
+				compact: true,
 			});
-		});
+		}
 	</script>
 </html>

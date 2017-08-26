@@ -29,13 +29,13 @@
 	justify-content: space-between;
 	align-items: center;
 	height: 50px;
-	margin-bottom: 5px;
+	margin-bottom: 2px;
 }
 .calendar-header > .calendar-header-label {
 	display: flex;
 	text-align: center;
 	justify-content: center;
-	margin: 2px 4px;
+	margin: 2px 0px;
 	padding: 5px 10px;
 	font-weight: bold;
 }
@@ -82,8 +82,8 @@
 	border-bottom: 1px solid #ccc;
 	height: initial;
 	
-	padding-bottom: 5px;
-	margin-bottom: 5px;
+	padding-bottom: 3px;
+	margin-bottom: 4px;
 	
 }
 
@@ -135,6 +135,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin-top: 2px;
 }
 .calendar-today-button {
 	cursor: pointer;
@@ -144,40 +145,69 @@
 	border-radius: 5px;
 	font-weight: bold;
 	padding: 6px 2px;
-	margin-top: 5px;
 	font-size: 0.9em;
 }
 .calendar-today-button:hover {
 	background: #eee;
 }
 
-.dark .calendar {
+.dark > .calendar {
 	background: #111;
 	color: #eee;
 }
-.dark .calendar .current-month {
+.dark > .calendar .current-month {
 	color: #eee;
 }
-.dark .calendar .not-current-month {
+.dark > .calendar .not-current-month {
 	color: #aaa;
 	background: #333;
 }
-.dark .calendar .calendar-option:hover {
+.dark > .calendar .calendar-option:hover {
 	color: #eee;
 	background: #4b133a;
 }
-.dark .calendar .selected-date {
+.dark > .calendar .selected-date {
 	color: #eee;
 	background: #2c1fa1;
 }
-.dark .calendar .calendar-header > .calendar-header-control:hover {
+.dark > .calendar .calendar-header > .calendar-header-control:hover {
 	color: #eee;
 	background: #444;
 }
-.dark .calendar .calendar-item.calendar-item-disabled {
+.dark > .calendar .calendar-item.calendar-item-disabled {
 	color: #999;
 	background: #444;
 }
-.dark .calendar-today-button:hover {
+.dark > .calendar .calendar-today-button:hover {
 	background: #444;
+}
+
+.compact > .calendar {
+	font-size: 0.75rem;
+	width: 168px;
+    padding: 2px 4px 2px 4px;
+
+}
+.compact > .calendar .calendar-date {
+	width: 24px;
+	height: 24px;
+
+}
+
+.compact > .calendar .calendar-item.calendar-weekday-label {
+	width: 24px;
+}
+.compact > .calendar .calendar-month {
+	width: 56px;
+	height: 42px;
+
+}
+.compact > .calendar .calendar-year {
+	width: 56px;
+	height: 42px;
+
+}
+.compact > .calendar .calendar-header {
+	height: 44px;
+
 }
