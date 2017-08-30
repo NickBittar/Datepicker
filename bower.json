@@ -2,8 +2,8 @@
   "name": "nb-datepicker",
   "description": "A datepicker with no dependencies.",
   "main": [
-	"./src/datepicker.css",
-	"./src/datepicker.js"
+	"dist/datepicker.css",
+	"dist/datepicker.js"
   ],
   "keywords": [
     "datepicker",
