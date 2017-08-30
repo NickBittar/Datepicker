@@ -1,9 +1,9 @@
 
-.datepicker-container {
+.nb-datepicker-container {
 	position: absolute;
 	z-index: 100;
 }
-.datepicker-container:focus {
+.nb-datepicker-container:focus {
 	outline: none;
 }
 
@@ -24,7 +24,7 @@
 	border-radius: 5px;
 }
 
-.calendar-header {
+.nb-datepicker-container  .calendar-header {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -32,7 +32,7 @@
 	height: 50px;
 	margin-bottom: 2px;
 }
-.calendar-header > .calendar-header-label {
+.nb-datepicker-container .calendar-header > .calendar-header-label {
 	display: flex;
 	text-align: center;
 	justify-content: center;
@@ -41,29 +41,29 @@
 	font-weight: bold;
 }
 
-.calendar-header > .calendar-header-control {
+.nb-datepicker-container .calendar-header > .calendar-header-control {
 	cursor: pointer;
 	border-radius: 5px;
 	font-size: 1.2em;
 }
-.calendar-header > .calendar-header-control:hover {
+.nb-datepicker-container .calendar-header > .calendar-header-control:hover {
 	background: #eee;
 }
-.calendar-header > .current-month-name {
+.nb-datepicker-container .calendar-header > .current-month-name {
 	font-size: 1em;
 }
-.calendar-header > .current-year-name {
+.nb-datepicker-container .calendar-header > .current-year-name {
 	font-size: 1em;
 }
 
-.calendar-body {
+.nb-datepicker-container .calendar-body {
 	display: flex;
 	flex-direction: row;
 	flex-flow: wrap;
 	justify-content: center;
 	
 }
-.calendar-date {				
+.nb-datepicker-container .calendar-date {				
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -74,7 +74,7 @@
 	
 	
 }
-.calendar-item.calendar-weekday-label {			
+.nb-datepicker-container .calendar-item.calendar-weekday-label {			
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -90,34 +90,34 @@
 	
 }
 
-.calendar-option {
+.nb-datepicker-container .calendar-option {
 	cursor: pointer;
 	/*border: 1px solid #fafafa;*/
 	box-sizing: border-box;
 }
-.calendar-option:hover {
+.nb-datepicker-container .calendar-option:hover {
 	background: lavender;
 	font-weight: bold;
 }
-.calendar-item.calendar-item-disabled {
+.nb-datepicker-container .calendar-item.calendar-item-disabled {
 	cursor: not-allowed;
 	color: #AAA;
 	background: #eee;
 	border-radius: 0px;
 }
-.current-month {
+.nb-datepicker-container .current-month {
 	color: #111;
 	border-radius: 3px;
 }
-.not-current-month {
+.nb-datepicker-container .not-current-month {
 	color: #b3b3b3;
 	background: #f5f5f5;
 	border-radius: 0px;
 }
-.calendar-item.selected-date {
+.nb-datepicker-container .calendar-item.selected-date {
 	background: gold;
 }
-.calendar-month { 
+.nb-datepicker-container .calendar-month { 
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -126,7 +126,7 @@
 	width: calc(100%/3);
 	height: 56px;
 }
-.calendar-year { 
+.nb-datepicker-container .calendar-year { 
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -136,13 +136,13 @@
 	height: 56px;
 }
 
-.calendar-footer {
+.nb-datepicker-container .calendar-footer {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	margin-top: 2px;
 }
-.calendar-today-button {
+.nb-datepicker-container .calendar-today-button {
 	cursor: pointer;
 	display: flex;
 	justify-content: center;
@@ -152,61 +152,61 @@
 	padding: 6px 2px;
 	font-size: 0.9em;
 }
-.calendar-today-button:hover {
+.nb-datepicker-container .calendar-today-button:hover {
 	background: #eee;
 }
 
-.dark > .calendar {
+.nb-datepicker-container.dark > .calendar {
 	background: #111;
 	color: #eee;
 }
-.dark > .calendar .current-month {
+.nb-datepicker-container.dark > .calendar .current-month {
 	color: #eee;
 }
-.dark > .calendar .not-current-month {
+.nb-datepicker-container.dark > .calendar .not-current-month {
 	color: #aaa;
 	background: #333;
 }
-.dark > .calendar .calendar-option:hover {
+.nb-datepicker-container.dark > .calendar .calendar-option:hover {
 	color: #eee;
 	background: #4b133a;
 }
-.dark > .calendar .selected-date {
+.nb-datepicker-container.dark > .calendar .selected-date {
 	color: #eee;
 	background: #2c1fa1;
 }
-.dark > .calendar .calendar-header > .calendar-header-control:hover {
+.nb-datepicker-container.dark > .calendar .calendar-header > .calendar-header-control:hover {
 	color: #eee;
 	background: #444;
 }
-.dark > .calendar .calendar-item.calendar-item-disabled {
+.nb-datepicker-container.dark > .calendar .calendar-item.calendar-item-disabled {
 	color: #999;
 	background: #444;
 }
-.dark > .calendar .calendar-today-button:hover {
+.nb-datepicker-container.dark > .calendar .calendar-today-button:hover {
 	background: #444;
 }
 
-.compact > .calendar {
+.nb-datepicker-container.compact > .calendar {
 	font-size: 0.75rem;
 	width: 176px;
     padding: 2px 4px 2px 4px;
 
 }
-.compact > .calendar .calendar-date {
+.nb-datepicker-container.compact > .calendar .calendar-date {
 	height: 24px;
 
 }
 
-.compact > .calendar .calendar-month {
+.nb-datepicker-container.compact > .calendar .calendar-month {
 	height: 42px;
 
 }
-.compact > .calendar .calendar-year {
+.nb-datepicker-container.compact > .calendar .calendar-year {
 	height: 42px;
 
 }
-.compact > .calendar .calendar-header {
+.nb-datepicker-container.compact > .calendar .calendar-header {
 	height: 44px;
 
 }

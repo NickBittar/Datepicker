@@ -68,7 +68,7 @@ var datepicker = {
 		}
 		
 		this.container = document.createElement('div');
-		this.container.classList.add('datepicker-container');
+		this.container.classList.add('nb-datepicker-container');
 		this.container.tabIndex = 0;
 		if(this.options.darkMode) {
 			this.container.classList.add('dark');
@@ -89,9 +89,9 @@ var datepicker = {
 			if(_this.options.hideCalendarOnClickOff) 
 				setTimeout(function(event) { _this.closeCalendar(event); }, 100);
 		});
-		this.container.addEventListener('blur', function(event) { _this.datepickerInFocus = false; if(_this.options.hideCalendarOnClickOff) setTimeout(function() { _this.closeCalendar(event);}, 200); });
+		this.container.addEventListener('blur', function(event) { _this.datepickerInFocus = false; if(_this.options.hideCalendarOnClickOff) setTimeout(function() { _this.closeCalendar(event);}, 100); });
 		this.container.addEventListener('focus', function(event) { _this.datepickerInFocus = true; });
-		this.container.addEventListener('mousedown', function(event) { console.log('click');setTimeout(function() {_this.container.focus();}, 50); });
+		this.container.addEventListener('mousedown', function(event) { setTimeout(function() {_this.container.focus();}, 50); });
 		
 		this.inputElem.addEventListener('change', function(event) {
 			if(_this.inputElem.value) {
@@ -207,7 +207,6 @@ var datepicker = {
 	},
 
 	closeCalendar: function closeCalendar(event) {
-		console.log(this.inputInFocus, this.datepickerInFocus);
 		if(!(this.inputInFocus || this.datepickerInFocus) && this.datepicker.parentNode) {
 			this.datepicker.parentNode.removeChild(this.datepicker);
 		}	
