@@ -1,2 +1,3 @@
 # Datepicker
-I made a datepicker that doesn't suck too much
+A datepicker with no dependencies.
+Check out a simple demo here: https://nickbittar.github.io/Datepicker/

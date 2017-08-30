@@ -1,0 +1,22 @@
+{
+  "name": "nb-datepicker",
+  "description": "A datepicker with no dependencies.",
+  "main": [
+	"./src/datepicker.css",
+	"./src/datepicker.js"
+  ],
+  "keywords": [
+    "datepicker",
+    "css",
+    "js",
+    "frontend",
+    "nb",
+    "nb-datepicker",
+    "bootstrap"
+  ],
+  "authors": [
+    "Nick Bittar <bittarnicholas@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/NickBittar/Datepicker"
+}
