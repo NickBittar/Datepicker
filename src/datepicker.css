@@ -14,7 +14,8 @@
 	display: flex;
 	flex-direction: column;
 	
-	width: 224px;
+	box-sizing: border-box;
+	width: 240px;
 	
 	padding: 4px 8px 8px 8px;
 	border: 1px solid #ccc;
@@ -68,6 +69,7 @@
 	justify-content: center;
 	
 	width: 32px;
+	width: calc(100%/7);
 	height: 32px;
 	
 	
@@ -78,6 +80,7 @@
 	justify-content: center;
 	
 	width: 32px;
+	width: calc(100%/7);
 	font-size: 1.1em;
 	border-bottom: 1px solid #ccc;
 	height: initial;
@@ -120,6 +123,7 @@
 	justify-content: center;
 	
 	width: 74px;
+	width: calc(100%/3);
 	height: 56px;
 }
 .calendar-year { 
@@ -128,6 +132,7 @@
 	justify-content: center;
 	
 	width: 74px;
+	width: calc(100%/3);
 	height: 56px;
 }
 
@@ -184,26 +189,20 @@
 
 .compact > .calendar {
 	font-size: 0.75rem;
-	width: 168px;
+	width: 176px;
     padding: 2px 4px 2px 4px;
 
 }
 .compact > .calendar .calendar-date {
-	width: 24px;
 	height: 24px;
 
 }
 
-.compact > .calendar .calendar-item.calendar-weekday-label {
-	width: 24px;
-}
 .compact > .calendar .calendar-month {
-	width: 56px;
 	height: 42px;
 
 }
 .compact > .calendar .calendar-year {
-	width: 56px;
 	height: 42px;
 
 }
