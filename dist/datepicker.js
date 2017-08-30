@@ -68,7 +68,7 @@ var datepicker = {
 		}
 		
 		this.container = document.createElement('div');
-		this.container.classList.add('nb-datepicker-container');
+		this.container.classList.add('ncb-datepicker-container');
 		this.container.tabIndex = 0;
 		if(this.options.darkMode) {
 			this.container.classList.add('dark');
@@ -191,7 +191,7 @@ var datepicker = {
 			html.appendChild(calendarFooter);
 		}
 		
-		this.container.id = 'nb-datepicker-' + this.inputElem.id;
+		this.container.id = 'ncb-datepicker-' + this.inputElem.id;
 		this.container.innerHTML = '';
 		
 		this.repositionCalendar();
