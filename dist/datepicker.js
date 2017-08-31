@@ -20,6 +20,7 @@ var datepicker = {
 		todayButton: true,
 		darkMode: false,
 		compact: false,
+		selectedDateColor: 'gold',
 	},
 	dateRegex: /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/,
 	
@@ -65,6 +66,9 @@ var datepicker = {
 			if(options.compact != undefined) {
 				this.options.compact = options.compact;
 			}
+			if(options.selectedDateColor) {
+				this.options.selectedDateColor = options.selectedDateColor;
+			}
 		}
 		
 		this.container = document.createElement('div');
@@ -77,7 +81,7 @@ var datepicker = {
 			this.container.classList.add('compact');
 		}
 		
-		this.inputElem.insertAdjacentElement('afterend', this.container);
+        document.body.insertAdjacentElement('beforeend', this.container);
 		
 		this.inputElem.addEventListener('focus', function(event) {
 			_this.inputInFocus = true;
@@ -277,7 +281,7 @@ var datepicker = {
 					calendarDate.classList.add('calendar-item');
 					calendarDate.classList.add('calendar-date');
 					calendarDate.classList.add('calendar-option');
-					if(selectedDate && this.utils.toISODateFormat(selectedDate) == this.utils.toISODateFormat(currDate.date)) calendarDate.classList.add('selected-date');
+					if(selectedDate && this.utils.toISODateFormat(selectedDate) == this.utils.toISODateFormat(currDate.date)) calendarDate.style.background = this.options.selectedDateColor;
 					calendarDate.classList.add((currDate.currentMonth ? 'current-month' : 'not-current-month' ));
 					calendarDate.title = this.utils.toNormalDateFormat(currDate.date);
 					calendarDate.setAttribute('data-date-value', this.utils.toISODateFormat(currDate.date));
@@ -359,7 +363,7 @@ var datepicker = {
 					calendarMonth.classList.add('calendar-item');
 					calendarMonth.classList.add('calendar-month');
 					calendarMonth.classList.add('calendar-option');
-					if(selectedDate && this.utils.toISODateFormat(this.utils.getFirstDayOfTheMonth(selectedDate)) == this.utils.toISODateFormat(this.utils.getFirstDayOfTheMonth(currDate.date))) calendarMonth.classList.add('selected-date');
+					if(selectedDate && this.utils.toISODateFormat(this.utils.getFirstDayOfTheMonth(selectedDate)) == this.utils.toISODateFormat(this.utils.getFirstDayOfTheMonth(currDate.date))) calendarMonth.style.background = this.options.selectedDateColor;
 					calendarMonth.title = this.utils.getMonthName(currDate.date) + ' ' + currDate.date.getFullYear();
 					calendarMonth.setAttribute('data-date-value', this.utils.toISODateFormat(currDate.date));
 					calendarMonth.innerText = this.utils.getMonthName(currDate.date).slice(0, 3);
@@ -441,7 +445,7 @@ var datepicker = {
 					calendarYear.classList.add('calendar-item');
 					calendarYear.classList.add('calendar-year');
 					calendarYear.classList.add('calendar-option');
-					if(selectedDate && selectedDate.getFullYear() == currDate.date.getFullYear()) calendarYear.classList.add('selected-date');
+					if(selectedDate && selectedDate.getFullYear() == currDate.date.getFullYear()) calendarYear.style.background = this.options.selectedDateColor;
 					calendarYear.title = currDate.date.getFullYear();
 					calendarYear.setAttribute('data-date-value', this.utils.toISODateFormat(currDate.date));
 					calendarYear.innerText = currDate.date.getFullYear();

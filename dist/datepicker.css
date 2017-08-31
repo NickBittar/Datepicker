@@ -114,9 +114,7 @@
 	background: #f5f5f5;
 	border-radius: 0px;
 }
-.ncb-datepicker-container .calendar-item.selected-date {
-	background: gold;
-}
+
 .ncb-datepicker-container .calendar-month { 
 	display: flex;
 	align-items: center;
