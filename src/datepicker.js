@@ -77,7 +77,7 @@ var datepicker = {
 			this.container.classList.add('compact');
 		}
 		
-		this.inputElem.insertAdjacentElement('afterend', this.container);
+        document.body.insertAdjacentElement('beforeend', this.container);
 		
 		this.inputElem.addEventListener('focus', function(event) {
 			_this.inputInFocus = true;
@@ -202,8 +202,9 @@ var datepicker = {
 	},
 	
 	repositionCalendar: function repositionCalendar() {
-		this.container.style.top = (this.inputElem.offsetTop + this.inputElem.offsetHeight + 5) + 'px';
-		this.container.style.left = this.inputElem.offsetLeft + 'px';
+        var rect = this.inputElem.getBoundingClientRect();
+		this.container.style.top = (rect.top + rect.height + 5) + 'px';
+		this.container.style.left = rect.left + 'px';
 	},
 
 	closeCalendar: function closeCalendar(event) {
