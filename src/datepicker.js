@@ -206,9 +206,8 @@ var datepicker = {
 	},
 	
 	repositionCalendar: function repositionCalendar() {
-        var rect = this.inputElem.getBoundingClientRect();
-		this.container.style.top = (rect.top + rect.height + 5) + 'px';
-		this.container.style.left = rect.left + 'px';
+		this.container.style.top = (this.inputElem.offsetTop + this.inputElem.offsetHeight + 5) + 'px';
+		this.container.style.left = this.inputElem.offsetLeft + 'px';
 	},
 
 	closeCalendar: function closeCalendar(event) {
