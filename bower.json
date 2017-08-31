@@ -1,7 +1,7 @@
 {
   "name": "ncb-datepicker",
   "description": "A datepicker with no dependencies.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": [
 	"dist/datepicker.css",
 	"dist/datepicker.js"
