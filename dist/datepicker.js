@@ -206,8 +206,12 @@ var datepicker = {
 	},
 	
 	repositionCalendar: function repositionCalendar() {
-		this.container.style.top = (this.inputElem.offsetTop + this.inputElem.offsetHeight + 5) + 'px';
-		this.container.style.left = this.inputElem.offsetLeft + 'px';
+		//this.container.style.top = (this.inputElem.offsetTop + this.inputElem.offsetHeight + 5) + 'px';
+		//this.container.style.left = this.inputElem.offsetLeft + 'px';
+		var rect = this.inputElem.getBoundingClientRect();
+		this.container.style.top = (rect.bottom + window.scrollY + 5) + 'px';
+		this.container.style.left = rect.left + window.scrollX + 'px';
+		
 	},
 
 	closeCalendar: function closeCalendar(event) {
