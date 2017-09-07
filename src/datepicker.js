@@ -204,14 +204,10 @@ var datepicker = {
 		this.container.appendChild(html);
 		
 	},
-	
 	repositionCalendar: function repositionCalendar() {
-		//this.container.style.top = (this.inputElem.offsetTop + this.inputElem.offsetHeight + 5) + 'px';
-		//this.container.style.left = this.inputElem.offsetLeft + 'px';
 		var rect = this.inputElem.getBoundingClientRect();
-		this.container.style.top = (rect.bottom + window.scrollY + 5) + 'px';
-		this.container.style.left = rect.left + window.scrollX + 'px';
-		
+		this.container.style.top = (rect.bottom + document.body.scrollTop + 5) + 'px';
+		this.container.style.left = rect.left + document.body.scrollLeft + 'px';
 	},
 
 	closeCalendar: function closeCalendar(event) {
