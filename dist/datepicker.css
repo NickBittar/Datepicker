@@ -1,7 +1,6 @@
 
 .ncb-datepicker-container {
 	position: absolute;
-	z-index: 100;
 }
 .ncb-datepicker-container:focus {
 	outline: none;

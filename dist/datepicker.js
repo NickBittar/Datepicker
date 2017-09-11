@@ -71,7 +71,17 @@ var datepicker = {
 			}
 		}
 		
-		this.container = document.createElement('div');
+		this.container = document.createElement('div'); 
+		// function getZIndex(e) {   
+            // var z = window.document.defaultView.getComputedStyle(e).getPropertyValue('z-index');
+            // if (isNaN(z) && e.parentNode != null && e.parentNode != document) return getZIndex(e.parentNode);
+            // return z;
+        // }
+        // var zIndex = getZIndex(this.inputElem);
+		// if(!isNaN(parseInt(zIndex))) {		
+				// this.container.style.zIndex = zIndex+1;
+		// }
+		
 		this.container.classList.add('ncb-datepicker-container');
 		this.container.tabIndex = 0;
 		if(this.options.darkMode) {
@@ -81,7 +91,8 @@ var datepicker = {
 			this.container.classList.add('compact');
 		}
 		
-        document.body.insertAdjacentElement('beforeend', this.container);
+        //document.body.insertAdjacentElement('beforeend', this.container);		  		
+		this.inputElem.insertAdjacentElement('afterend', this.container);
 		
 		this.inputElem.addEventListener('focus', function(event) {
 			_this.inputInFocus = true;
@@ -206,8 +217,8 @@ var datepicker = {
 	},
 	repositionCalendar: function repositionCalendar() {
 		var rect = this.inputElem.getBoundingClientRect();
-		this.container.style.top = (rect.bottom + document.body.scrollTop + 5) + 'px';
-		this.container.style.left = rect.left + document.body.scrollLeft + 'px';
+		this.container.style.top = (rect.bottom + this.container.parentNode.scrollTop + 5) + 'px';
+		this.container.style.left = rect.left + this.container.parentNode.scrollLeft + 'px';
 	},
 
 	closeCalendar: function closeCalendar(event) {
