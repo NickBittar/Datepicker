@@ -21,6 +21,8 @@ var datepicker = {
 		darkMode: false,
 		compact: false,
 		selectedDateColor: 'gold',
+		onDateSelect: null,
+		enableDateParsing: true,
 	},
 	dateRegex: /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/,
 	
@@ -69,18 +71,24 @@ var datepicker = {
 			if(options.selectedDateColor) {
 				this.options.selectedDateColor = options.selectedDateColor;
 			}
+			if(options.onDateSelect) {
+				this.options.onDateSelect = options.onDateSelect;
+			}
+			if(options.enableDateParsing != undefined) {
+				this.options.enableDateParsing = options.enableDateParsing;
+			}
 		}
 		
 		this.container = document.createElement('div'); 
-		// function getZIndex(e) {   
-            // var z = window.document.defaultView.getComputedStyle(e).getPropertyValue('z-index');
-            // if (isNaN(z) && e.parentNode != null && e.parentNode != document) return getZIndex(e.parentNode);
-            // return z;
-        // }
-        // var zIndex = getZIndex(this.inputElem);
-		// if(!isNaN(parseInt(zIndex))) {		
-				// this.container.style.zIndex = zIndex+1;
-		// }
+		function getZIndex(e) {   
+            var z = window.document.defaultView.getComputedStyle(e).getPropertyValue('z-index');
+            if (isNaN(z) && e.parentNode != null && e.parentNode != document) return getZIndex(e.parentNode);
+            return z;
+        }
+        var zIndex = getZIndex(this.inputElem);
+		if(!isNaN(parseInt(zIndex))) {		
+				this.container.style.zIndex = zIndex+1;
+		}
 		
 		this.container.classList.add('ncb-datepicker-container');
 		this.container.tabIndex = 0;
@@ -108,47 +116,51 @@ var datepicker = {
 		this.container.addEventListener('focus', function(event) { _this.datepickerInFocus = true; });
 		this.container.addEventListener('mousedown', function(event) { setTimeout(function() {_this.container.focus();}, 50); });
 		
-		this.inputElem.addEventListener('change', function(event) {
-			if(_this.inputElem.value) {
-				if(!_this.dateRegex.test(_this.inputElem.value) || new Date(_this.inputElem.value) < _this.options.minDate || new Date(_this.inputElem.value) > _this.options.maxDate) {
-					_this.inputElem.value = '';
-				}
-			}
-		});
+		// DISABLED TEMPORARILY
+		// this.inputElem.addEventListener('change', function(event) {
+			// if(_this.options.enableDateParsing && _this.inputElem.value) {
+				// if((_this.options.enableDateParsing && !_this.dateRegex.test(_this.inputElem.value)) || (_this.options.minDate && new Date(_this.inputElem.value) < _this.options.minDate) || (_this.options.maxDate && new Date(_this.inputElem.value) > _this.options.maxDate)) {
+					// console.warn(_this.inputElem.value, !_this.dateRegex.test(_this.inputElem.value));
+					// _this.inputElem.value = '';
+				// }
+			// }
+		// });
 		
 		this.inputElem.addEventListener('input', function(event) {
-			let parts = _this.inputElem.value.split('/');
-			let guess = _this.options.defaultDate;
-			
-			if(parts[0] != undefined && parts[0] != '' && !isNaN(parts[0])) {
-				let month = parseInt(parts[0]);
-				if(month < 1) month = 1;
-				if(month > 12) month = 12;
-				guess.setMonth(month-1);
-			}
-			if(parts[1] != undefined && parts[1] != '' && !isNaN(parts[1])) {
-				let date = parseInt(parts[1]);
-				if(date < 1) date = 1;
-				if(date > 31) date = 31;
-				guess.setDate(date);
-			}
-			if(parts[2] != undefined && parts[2] != '' && !isNaN(parts[2])) {
-				let year = parts[2];
-				if(year.length == 2) {
-					if(year >= 20) {
-						year = '19' + year;
-					} else {
-						year = '20' + year;
+			if (_this.options.enableDateParsing) {
+				let parts = _this.inputElem.value.split('/');
+				let guess = _this.options.defaultDate;
+				
+				if(parts[0] != undefined && parts[0] != '' && !isNaN(parts[0])) {
+					let month = parseInt(parts[0]);
+					if(month < 1) month = 1;
+					if(month > 12) month = 12;
+					guess.setMonth(month-1);
+				}
+				if(parts[1] != undefined && parts[1] != '' && !isNaN(parts[1])) {
+					let date = parseInt(parts[1]);
+					if(date < 1) date = 1;
+					if(date > 31) date = 31;
+					guess.setDate(date);
+				}
+				if(parts[2] != undefined && parts[2] != '' && !isNaN(parts[2])) {
+					let year = parts[2];
+					if(year.length == 2) {
+						if(year >= 20) {
+							year = '19' + year;
+						} else {
+							year = '20' + year;
+						}
+					} else if (year.length == 3) {
+						year = year + '0';
 					}
-				} else if (year.length == 3) {
-					year = year + '0';
+					if(year.length >= 2 && year.length <= 4) {
+						guess.setFullYear(year);
+					}
 				}
-				if(year.length >= 2 && year.length <= 4) {
-					guess.setFullYear(year);
-				}
+				
+				_this.updateCalendar(guess);
 			}
-			
-			_this.updateCalendar(guess);
 		});
 		
 		
@@ -216,9 +228,11 @@ var datepicker = {
 		
 	},
 	repositionCalendar: function repositionCalendar() {
-		var rect = this.inputElem.getBoundingClientRect();
-		this.container.style.top = (rect.bottom + this.container.parentNode.scrollTop + 5) + 'px';
-		this.container.style.left = rect.left + this.container.parentNode.scrollLeft + 'px';
+		// var rect = this.inputElem.getBoundingClientRect();
+		// this.container.style.top = (rect.bottom + this.container.parentNode.scrollTop + 5) + 'px';
+		// this.container.style.left = rect.left + this.container.parentNode.scrollLeft + 'px';
+		this.container.style.top = (this.inputElem.offsetTop + this.inputElem.offsetHeight + 5) + 'px';
+		this.container.style.left = this.inputElem.offsetLeft + 'px';
 	},
 
 	closeCalendar: function closeCalendar(event) {
@@ -502,9 +516,18 @@ var datepicker = {
 	
 	pickDate: function(event, date, keepOpen) {
 		this.inputElem.value = this.utils.toNormalDateFormat(date);
+		
+		var evt = new Event('change', {bubbles: false});
+		this.inputElem.dispatchEvent(evt);
+		
 		this.updateCalendar(date);
 		if(this.options.hideCalendarOnSelect && !keepOpen)
 			this.datepicker.parentNode.removeChild(this.datepicker);
+		
+		if(this.options.onDateSelect) {
+			this.options.onDateSelect(event, date);
+		}
+	
 	},
 	
 	getCalendarDates: function getCalendarDates(d) {
