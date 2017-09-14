@@ -27,15 +27,22 @@ var datepicker = {
 	dateRegex: /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/,
 	
 	create: function create(input, options) {
-		var dp = Object.create(this);
-		dp.init(input, options)
+		// Check for input Id
+		if(!input.id) {
+			console.error('Input element must have a unique id attribute value to apply a datepicker to.');
+			return false;
+		}
+		
+		// Check if datepicker is already initialized for input
+		var possibleDatepicker = document.getElementById('ncb-datepicker-' + input.id);
+		if(!possibleDatepicker) {
+			var dp = Object.create(this);
+			dp.init(input, options);
+			return dp;
+		}
 	},
 	
-	init: function init(inputElem, options) {
-		var _this = this;
-		
-		this.inputElem = inputElem;
-		
+	updateOptions: function updateOptions(options) {
 		// options
 		if(options) {
 			if(options.selectedDate instanceof Date || !isNaN(Date.parse(options.selectedDate)))
@@ -79,7 +86,30 @@ var datepicker = {
 			}
 		}
 		
+		if(this.options.darkMode) {
+			this.container.classList.add('dark');
+		} else {
+			this.container.classList.remove('dark');
+		}
+		
+		if(this.options.compact) {
+			this.container.classList.add('compact');
+		} else {
+			this.container.classList.remove('compact');
+		}
+		
+	},
+	
+	init: function init(inputElem, options) {
+		var _this = this;
+		
+		this.inputElem = inputElem;
+		
+		
 		this.container = document.createElement('div'); 
+		this.container.id = 'ncb-datepicker-' + this.inputElem.id;
+		this.inputElem.setAttribute('data-ncb-datepicker-id', this.container.id);
+		
 		function getZIndex(e) {   
             var z = window.document.defaultView.getComputedStyle(e).getPropertyValue('z-index');
             if (isNaN(z) && e.parentNode != null && e.parentNode != document) return getZIndex(e.parentNode);
@@ -92,12 +122,9 @@ var datepicker = {
 		
 		this.container.classList.add('ncb-datepicker-container');
 		this.container.tabIndex = 0;
-		if(this.options.darkMode) {
-			this.container.classList.add('dark');
-		}
-		if(this.options.compact) {
-			this.container.classList.add('compact');
-		}
+		
+		// OPTIONS
+		this.updateOptions(options);
 		
         //document.body.insertAdjacentElement('beforeend', this.container);		  		
 		this.inputElem.insertAdjacentElement('afterend', this.container);
@@ -218,7 +245,6 @@ var datepicker = {
 			html.appendChild(calendarFooter);
 		}
 		
-		this.container.id = 'ncb-datepicker-' + this.inputElem.id;
 		this.container.innerHTML = '';
 		
 		this.repositionCalendar();
