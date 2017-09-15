@@ -37,6 +37,7 @@ var datepicker = {
 		var possibleDatepicker = document.getElementById('ncb-datepicker-' + input.id);
 		if(!possibleDatepicker) {
 			var dp = Object.create(this);
+			dp.options = Object.create(this.options);
 			dp.init(input, options);
 			return dp;
 		}
