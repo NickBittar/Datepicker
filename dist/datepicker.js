@@ -111,12 +111,7 @@ var datepicker = {
 		this.container.id = 'ncb-datepicker-' + this.inputElem.id;
 		this.inputElem.setAttribute('data-ncb-datepicker-id', this.container.id);
 		
-		function getZIndex(e) {   
-            var z = window.document.defaultView.getComputedStyle(e).getPropertyValue('z-index');
-            if (isNaN(z) && e.parentNode != null && e.parentNode != document) return getZIndex(e.parentNode);
-            return z;
-        }
-        var zIndex = getZIndex(this.inputElem);
+        var zIndex = this.utils.getZIndex(this.inputElem);
 		if(!isNaN(parseInt(zIndex))) {		
 				this.container.style.zIndex = zIndex+1;
 		}
@@ -263,7 +258,7 @@ var datepicker = {
 	},
 
 	closeCalendar: function closeCalendar(event) {
-		if(!(this.inputInFocus || this.datepickerInFocus) && this.datepicker.parentNode) {
+		if(!(this.inputInFocus || this.datepickerInFocus) && (this.datepicker && this.datepicker.parentNode)) {
 			this.datepicker.parentNode.removeChild(this.datepicker);
 		}	
 	},
@@ -544,8 +539,16 @@ var datepicker = {
 	pickDate: function(event, date, keepOpen) {
 		this.inputElem.value = this.utils.toNormalDateFormat(date);
 		
-		var evt = new Event('change', {bubbles: false});
-		this.inputElem.dispatchEvent(evt);
+		// Trigger change event on inputElem
+		try {
+			var evt = new Event('change', {bubbles: false});
+			this.inputElem.dispatchEvent(evt);
+		} catch (ex) {
+			// If the above method didn't work, fallback to this deprecated method
+			var evt = document.createEvent('Event');
+			evt.initEvent('change', true, false);
+			this.inputElem.dispatchEvent(evt);
+		}
 		
 		this.updateCalendar(date);
 		if(this.options.hideCalendarOnSelect && !keepOpen)
@@ -619,12 +622,17 @@ var datepicker = {
 
 	utils: {
 				
+		getZIndex: function getZIndex(e) {   
+            var z = window.document.defaultView.getComputedStyle(e).getPropertyValue('z-index');
+            if (isNaN(z) && e.parentNode != null && e.parentNode != document) return getZIndex(e.parentNode);
+            return z;
+        },
+				
 		getFirstDayOfTheMonth: function getFirstDayOfTheMonth(d) {
 			const first = new Date(d);
 			first.setDate(1);
 			return first;
 		},
-
 
 		addDays: function addDays(d, i) {
 			d = new Date(d);
