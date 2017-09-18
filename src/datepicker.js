@@ -126,8 +126,10 @@ var datepicker = {
 		this.inputElem.insertAdjacentElement('afterend', this.container);
 		
 		this.inputElem.addEventListener('focus', function(event) {
-			_this.inputInFocus = true;
-			_this.updateCalendar(null);
+			if(!_this.inputElem.disabled && !_this.inputElem.readOnly) {
+				_this.inputInFocus = true;
+				_this.updateCalendar(null);
+			}
 		});
 		
 		this.inputElem.addEventListener('blur', function(event){
