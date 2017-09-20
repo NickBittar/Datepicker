@@ -666,10 +666,14 @@ var datepicker = {
 			return d.toISOString().slice(0, 10)
 		},
 		
-		toNormalDateFormat: function toISODateFormat(d) {
+		toNormalDateFormat: function toISODateFormat(d, singleDigits) {
 			d = new Date(d);
 			//d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
-			return (d.getMonth()+1) + '/' + d.getDate() + '/' + d.getFullYear();
+			if(singleDigits) {
+				return (d.getMonth()+1) + '/' + d.getDate() + '/' + d.getFullYear();
+			} else {
+				return ('0' + (d.getMonth()+1)).slice(-2) + '/' + ('0' + d.getDate()).slice(-2) + '/' + d.getFullYear();
+			}
 		},
 		
 		DATES_IN_VIEW: 7 * 6,  // 7 days * 6 weeks
