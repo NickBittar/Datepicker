@@ -36,19 +36,19 @@ $('.datepicker').each((index, elem) => datepicker.create(elem));
 Pass options in when initializing
 ```javascript
 var options = {
-		minDate: '2016-01-01',
+	minDate: '2016-01-01',
         maxDate: '2020-12-31',
         compact: true
-	};
+};
 var datepicker1 = datepicker.create(dateElem, options);
 ```
 Update these options afterwards:
 ```javascript
 // Use the object returned from the original 'datepicker.create' to call methods on it
 datepicker1.updateOptions({
-		minDate: '2011-01-01',
+	minDate: '2011-01-01',
         darkMode: true
-    });
+});
 ```
 ---
         
@@ -92,17 +92,17 @@ var specialInput3 = document.getElementById('special-input-3');
 var dateInputs = document.querySelectorAll('.datepicker');
 
 datepicker.create(specialInput1, {
-		minDate: new Date(1900,0,1),
+	minDate: new Date(1900,0,1),
         maxDate: new Date(1949,11,31)
-	});
+});
 datepicker.create(specialInput2, {
-		minDate: new Date(2000,0,1),
+	minDate: new Date(2000,0,1),
         darkMode: true
-	});
+});
 datepicker.create(specialInput3, {
-		compact: true,
+	compact: true,
         selectedDateColor: '#7788EE'
-	});
+});
     
 for(var elem of dateInputs) {
   datepicker.create(elem);
@@ -131,33 +131,45 @@ JavaScript
 ```javascript
 // Get all elements with the datepicker class inside the datepickers-container element
 var dateInputs = document.querySelectorAll('#datepickers-container .datepicker');
+
 // Create an empty object which will use the id of the inputs as the key to their datepicker object.
 var datepickerLibrary = {};
+
 for(var inputElem of dateInputs) {
+
 	// Save the datepicker object in the library with its id as the key
 	datepickerLibrary[dp.id] = datepicker.create(inputElem);
+	
     // Listen for changes to the date value
     inputElem.addEventListener('change', function(e) {
+	
     	var inputId = this.id;
+		
         // Figure out whether the start or end date was changed
         if(inputId.indexOf('start-date') > -1) {
+		
         	// Input was start date, get end date's id
         	var endDatePickerId = inputId.replace('start-date', 'end-date');
+			
             // Get end date's datepicker object
             var endDatePicker = datepickerLibrary[endDatePickerId];
+			
             // Update the minimum date to the value of the start date
             endDatePicker.updateOptions({
-            		minDate: this.value
-            	});
+				minDate: this.value
+			});
         } else {
+		
         	// Input was end date, get the start date's id
         	var startDatePickerId = inputId.replace('end-date', 'start-date');
+			
             // Get start date's datepicker object
             var startDatePicker = datepickerLibrary[startDatePickerId];
+			
             // Update the maximum date to the value of the end date
             startDatePicker.updateOptions({
-            		maxDate: this.value
-            	});
+				maxDate: this.value
+			});
         }
     });
 }
