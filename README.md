@@ -140,7 +140,7 @@ for(var inputElem of dateInputs) {
     inputElem.addEventListener('change', function(e) {
     	var inputId = this.id;
         // Figure out whether the start or end date was changed
-        if(inputId.indexOf('start-date')) {
+        if(inputId.indexOf('start-date') > -1) {
         	// Input was start date, get end date's id
         	var endDatePickerId = inputId.replace('start-date', 'end-date');
             // Get end date's datepicker object
