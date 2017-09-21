@@ -115,7 +115,7 @@ for(var elem of dateInputs) {
 HTML
 ```HTML
 <div id="datepickers-container">
-   	<input id="start-date-for-entity-id-123" class="datepicker" placeholder="mm/dd/yyyy"/>
+<input id="start-date-for-entity-id-123" class="datepicker" placeholder="mm/dd/yyyy"/>
     <input id="end-date-for-entity-id-123" class="datepicker" placeholder="mm/dd/yyyy"/>
        
     <input id="start-date-for-entity-id-321" class="datepicker" placeholder="mm/dd/yyyy"/>
@@ -137,8 +137,8 @@ var datepickerLibrary = {};
 
 for(var inputElem of dateInputs) {
 
-	// Save the datepicker object in the library with its id as the key
-	datepickerLibrary[dp.id] = datepicker.create(inputElem);
+// Save the datepicker object in the library with its id as the key
+datepickerLibrary[dp.id] = datepicker.create(inputElem);
 	
     // Listen for changes to the date value
     inputElem.addEventListener('change', function(e) {
@@ -148,28 +148,28 @@ for(var inputElem of dateInputs) {
         // Figure out whether the start or end date was changed
         if(inputId.indexOf('start-date') > -1) {
 		
-        	// Input was start date, get end date's id
-        	var endDatePickerId = inputId.replace('start-date', 'end-date');
+		// Input was start date, get end date's id
+		var endDatePickerId = inputId.replace('start-date', 'end-date');
 			
             // Get end date's datepicker object
             var endDatePicker = datepickerLibrary[endDatePickerId];
 			
             // Update the minimum date to the value of the start date
             endDatePicker.updateOptions({
-				minDate: this.value
-			});
+			minDate: this.value
+		});
         } else {
 		
-        	// Input was end date, get the start date's id
-        	var startDatePickerId = inputId.replace('end-date', 'start-date');
+		// Input was end date, get the start date's id
+		var startDatePickerId = inputId.replace('end-date', 'start-date');
 			
             // Get start date's datepicker object
             var startDatePicker = datepickerLibrary[startDatePickerId];
 			
             // Update the maximum date to the value of the end date
             startDatePicker.updateOptions({
-				maxDate: this.value
-			});
+			maxDate: this.value
+		});
         }
     });
 }
