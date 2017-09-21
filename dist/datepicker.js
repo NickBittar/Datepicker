@@ -114,6 +114,8 @@ var datepicker = {
         var zIndex = this.utils.getZIndex(this.inputElem);
 		if(!isNaN(parseInt(zIndex))) {		
 				this.container.style.zIndex = zIndex+1;
+		} else {
+				this.container.style.zIndex = 11;
 		}
 		
 		this.container.classList.add('ncb-datepicker-container');
