@@ -142,7 +142,11 @@ var datepicker = {
 		
 		if(options.attachToElement) {
 			options.attachToElement.insertAdjacentElement('beforeend', this.container);
-			window.addEventListener('scroll', () => { if(this.container.childElementCount > 0) this.repositionCalendar(); }, true);
+			window.addEventListener('scroll', function(e) { 
+				if(_this.container.childElementCount > 0) {
+					_this.repositionCalendar(); 
+				}
+			}, true);
 		} else {
 			this.inputElem.insertAdjacentElement('afterend', this.container);
 		}
