@@ -23,6 +23,8 @@ var datepicker = {
 		selectedDateColor: 'gold',
 		onDateSelect: null,
 		enableDateParsing: true,
+		attachToElement: null,
+		wrapInputElem: true,
 	},
 	dateRegex: /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[1,3-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/,
 	
@@ -85,6 +87,12 @@ var datepicker = {
 			if(options.enableDateParsing != undefined) {
 				this.options.enableDateParsing = options.enableDateParsing;
 			}
+			if(options.attachToElement) {
+				this.options.attachToElement = options.attachToElement;
+			}
+			if(options.wrapInputElem != undefined) {
+				this.options.wrapInputElem = options.wrapInputElem;
+			}
 		}
 		
 		if(this.options.darkMode) {
@@ -114,6 +122,8 @@ var datepicker = {
         var zIndex = this.utils.getZIndex(this.inputElem);
 		if(!isNaN(parseInt(zIndex))) {		
 				this.container.style.zIndex = zIndex+1;
+		} else {
+				this.container.style.zIndex = 11;
 		}
 		
 		this.container.classList.add('ncb-datepicker-container');
@@ -122,8 +132,21 @@ var datepicker = {
 		// OPTIONS
 		this.updateOptions(options);
 		
-        //document.body.insertAdjacentElement('beforeend', this.container);		  		
-		this.inputElem.insertAdjacentElement('afterend', this.container);
+		if(this.options.wrapInputElem) {
+			if(this.inputElem.parentNode) {
+				var wrapDisplay = window.getComputedStyle(this.inputElem).display;
+				this.inputElem.outerHTML = '<div style="position: relative; display: ' + wrapDisplay + '">' + this.inputElem.outerHTML + '</div>';
+				this.inputElem = document.getElementById(inputElem.id);
+			}
+		}
+		
+		if(options.attachToElement) {
+			options.attachToElement.insertAdjacentElement('beforeend', this.container);
+			window.addEventListener('scroll', () => { if(this.container.childElementCount > 0) this.repositionCalendar(); }, true);
+		} else {
+			this.inputElem.insertAdjacentElement('afterend', this.container);
+		}
+		
 		
 		this.inputElem.addEventListener('focus', function(event) {
 			if(!_this.inputElem.disabled && !_this.inputElem.readOnly) {
@@ -252,13 +275,42 @@ var datepicker = {
 		
 	},
 	repositionCalendar: function repositionCalendar() {
-		// var rect = this.inputElem.getBoundingClientRect();
-		// this.container.style.top = (rect.bottom + this.container.parentNode.scrollTop + 5) + 'px';
-		// this.container.style.left = rect.left + this.container.parentNode.scrollLeft + 'px';
-		this.container.style.top = (this.inputElem.offsetTop + this.inputElem.offsetHeight + 5) + 'px';
-		this.container.style.left = this.inputElem.offsetLeft + 'px';
+		
+		// function getPos(elem, container, skipFirstElem) {
+			// var x = 0;
+			// var y = elem.offsetHeight + 5;
+			// if(skipFirstElem) {
+				// console.log('skip');
+				// elem = elem.parentNode;
+			// }
+			// while(elem.parentNode != null) {
+				// if(elem == container) { console.log('break'); break;}
+					// var rect = elem.getBoundingClientRect();
+					// x += elem.offsetLeft;
+					// y += elem.offsetTop;
+				// if(elem != document.body) {
+					// x -= elem.scrollLeft;
+					// y -= elem.scrollTop;
+				// }
+				
+				// elem = elem.parentNode
+			// }
+			// return {x, y};
+		// }
+		// var offset = getPos(this.inputElem, this.container.parentNode, this.options.attachToElement != null);
+		// this.container.style.top = (offset.y) + 'px';
+		// this.container.style.left = offset.x + 'px';
+		
+		if(this.options.attachToElement) {
+			var rect = this.inputElem.getBoundingClientRect();
+			this.container.style.top = (rect.bottom + this.container.parentNode.scrollTop - this.options.attachToElement.offsetTop + 5) + 'px';
+			this.container.style.left = rect.left + this.container.parentNode.scrollLeft - this.options.attachToElement.offsetLeft + 'px';
+		} else {
+			this.container.style.top = (this.inputElem.offsetTop + this.inputElem.offsetHeight + 5) + 'px';
+			this.container.style.left = this.inputElem.offsetLeft + 'px';
+		}
 	},
-
+	
 	closeCalendar: function closeCalendar(event) {
 		if(!(this.inputInFocus || this.datepickerInFocus) && (this.datepicker && this.datepicker.parentNode)) {
 			this.datepicker.parentNode.removeChild(this.datepicker);

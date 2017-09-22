@@ -67,6 +67,8 @@ Option | Datatype | Description | Possible Values | Default Value
 `selectedDateColor` | Color | The background color of the date selected.  Can be CSS color or hexadecimal representation (eg #FF3311). | Valid CSS color | 'gold'
 `onDateSelect` | Function | Calls this function when a date is picked from the datepicker. | Any | null
 `enableDateParsing` | Boolean | When enabled, as the user types a date into the input element, the datepicker will show and highlight the corresponding date in the datepicker. | true, false | true
+`attachToElement` | HTML Element | A different element to append the datepicker to.  Useful if the input element is in a container that hides its overflow.  By setting this to a higher level container the calendar can appear fully and not be cut off.  Note: This option cannot be updated after initialization. | Any | null
+`wrapInputElem` | Boolean | When set to true, will wrap the input element inside a div to set the position to 'relative'.  Fixes an issue with input elements inside table elements.  Note: This option cannot be updated after initialization. | true, false | true
 
 
 ## More Advances Examples

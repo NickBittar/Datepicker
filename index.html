@@ -28,6 +28,28 @@
 				padding: 20px 15px;
 				z-index: 254;
 			}
+			.modal-container {
+				position: fixed;
+				top: 300px;
+				left: 100px;
+				width: 400px;
+				height: 200px;
+				margin: 30px auto;
+				padding: 16px;
+			}
+			.modal {
+				position: relative;
+				background: lavender;
+				height: 200px;
+				margin: 30px auto;
+				padding: 300px 16px;
+				box-sizing: border-box;
+				overflow-y: scroll;
+			}
+			.modal-wrapper {
+				position: absolute;
+				width: 100%;
+			}
 		</style>
 		<link rel="stylesheet" type="text/css" href="dist/datepicker.css">
 	</head>
@@ -37,12 +59,38 @@
 				<input id="date-input" class="datepicker" style="z-index: 123;"/>
 				<input id="date-input2" class="datepicker" />
 			</div>
+			<div class="modal-wrapper">
+			<div class="modal-container">
+				<div class="modal">
+					<table>
+						<tr>
+							<td>
+							This is a test
+							</td>
+							<td>
+								<div><input id="date-input3" class="datepicker" value="01/01/2016"/></div>
+							</td>
+							<td>
+							A very bad test
+							</td>
+						</tr>
+					</table>
+					
+					<input id="date-input4" class="datepicker"/>
+					
+				</div>
+			</div>
+			</div>
 		</div>
 	</body>
 	<script src="dist/datepicker.js"></script>
 	<script type="text/javascript">
 		var dateInputs = document.querySelectorAll('input.datepicker');
 		var datepickerObjs = [];
+		datepicker.create(document.getElementById('date-input3'), {
+			attachToElement: document.querySelector('.modal-container'),
+			hideCalendarOnClickOff: true
+		});
 		for(var i = 0; i < dateInputs.length; i++) {
 			var dp = datepicker.create(dateInputs[i], { 
 				selectedDate: new Date(2017,06,02),
@@ -57,6 +105,8 @@
 				compact: false,
 				selectedDateColor: '#bb66ee',
 				onDateSelect: function(e, date) { console.log(e, date, 'listener test', arguments);},
+				attachToElement: null,//document.body,
+				wrapInputElem: true
 			});
 			
 			datepickerObjs.push(dp);
