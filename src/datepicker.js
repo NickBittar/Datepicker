@@ -272,11 +272,11 @@ var datepicker = {
 		
 		this.container.innerHTML = '';
 		
-		this.repositionCalendar();
 		
 		this.datepicker = html;
 		this.container.appendChild(html);
 		
+		this.repositionCalendar();
 	},
 	repositionCalendar: function repositionCalendar() {
 		
@@ -309,6 +309,12 @@ var datepicker = {
 			var rect = this.inputElem.getBoundingClientRect();
 			this.container.style.top = (rect.bottom + this.container.parentNode.scrollTop - this.options.attachToElement.offsetTop + 5) + 'px';
 			this.container.style.left = rect.left + this.container.parentNode.scrollLeft - this.options.attachToElement.offsetLeft + 'px';
+			
+			var thisRect = this.container.getBoundingClientRect();
+			if ((thisRect.y + thisRect.height) > window.innerHeight) {
+				this.container.style.top = (rect.top + this.container.parentNode.scrollTop - thisRect.height) + 'px';
+				//this.container.style.top = 0;
+			}
 		} else {
 			this.container.style.top = (this.inputElem.offsetTop + this.inputElem.offsetHeight + 5) + 'px';
 			this.container.style.left = this.inputElem.offsetLeft + 'px';
