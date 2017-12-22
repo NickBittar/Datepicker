@@ -127,7 +127,7 @@ var datepicker = {
 		}
 		
 		this.container.classList.add('ncb-datepicker-container');
-		this.container.tabIndex = 0;
+		this.container.tabIndex = -1;
 		
 		// OPTIONS
 		this.updateOptions(options);
