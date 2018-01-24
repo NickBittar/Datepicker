@@ -89,13 +89,14 @@
 		var datepickerObjs = [];
 		datepicker.create(document.getElementById('date-input3'), {
 			attachToElement: document.querySelector('.modal-container'),
-			hideCalendarOnClickOff: true
+			hideCalendarOnClickOff: true,
+			maxDate: new Date((new Date()).toLocaleDateString()),
 		});
 		for(var i = 0; i < dateInputs.length; i++) {
 			var dp = datepicker.create(dateInputs[i], { 
 				selectedDate: new Date(2017,06,02),
 				minDate: new Date(1990,5,15), 
-				maxDate: new Date(2100, 2, 8), 
+				maxDate: new Date(2018, 0, 20), 
 				defaultDate: new Date(2017, 04, 2), 
 				hideCalendarOnClickOff: true,
 				hideCalendarOnSelect: true,

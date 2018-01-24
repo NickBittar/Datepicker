@@ -98,7 +98,7 @@
 	background: lavender;
 	font-weight: bold;
 }
-.ncb-datepicker-container .calendar-item.calendar-item-disabled {
+.ncb-datepicker-container .calendar-item.calendar-item-disabled, .ncb-datepicker-container .calendar-today-button.calendar-today-button-disabled {
 	cursor: not-allowed;
 	color: #AAA;
 	background: #eee;

@@ -119,7 +119,7 @@ var datepicker = {
 		this.container.id = 'ncb-datepicker-' + this.inputElem.id;
 		this.inputElem.setAttribute('data-ncb-datepicker-id', this.container.id);
 		
-        var zIndex = this.utils.getZIndex(this.inputElem);
+		var zIndex = this.utils.getZIndex(this.inputElem);
 		if(!isNaN(parseInt(zIndex))) {		
 				this.container.style.zIndex = zIndex+1;
 		} else {
@@ -592,10 +592,18 @@ var datepicker = {
 		todayButton.classList.add('calendar-today-button');
 		todayButton.title = 'Go to today (' + this.utils.toNormalDateFormat(new Date()) + ')';
 		todayButton.innerText = 'Today';
-		todayButton.addEventListener('click', function(event) {
-			_this.viewMode = 'day';	// Maybe change this to check min view mode
-			_this.pickDate(event, new Date(), true);
-		});
+
+		var now = new Date();
+		var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+		if ((this.options.minDate && today < this.options.minDate) || (this.options.maxDate && today > this.options.maxDate)) {
+			todayButton.classList.add('calendar-today-button-disabled');
+		} else {
+			todayButton.addEventListener('click', function (event) {
+				_this.viewMode = 'day';	// Maybe change this to check min view mode
+				_this.pickDate(event, today, true);
+			});
+		}
+		
 		return todayButton;
 	},
 	
@@ -625,6 +633,7 @@ var datepicker = {
 	},
 	
 	getCalendarDates: function getCalendarDates(d) {
+		d = new Date(d.getFullYear(), d.getMonth(), d.getDate());
 		let startDate = this.utils.getFirstDayOfTheMonth(d);
 		
 		// If the start of the month is Sunday, Monday, or Tuesday, show the previous month's week
@@ -649,6 +658,7 @@ var datepicker = {
 	},
 	
 	getCalendarMonths: function getCalendarMonths(d) {
+		d = new Date(d.getFullYear(), d.getMonth(), d.getDate());
 		let startDate = this.utils.getFirstDayOfTheMonth(d);
 		startDate.setMonth(0);
 		
@@ -664,6 +674,7 @@ var datepicker = {
 	},
 	
 	getCalendarYears: function getCalendarYears(d) {
+		d = new Date(d.getFullYear(), d.getMonth(), d.getDate());
 		let startDate = this.utils.getFirstDayOfTheMonth(d);
 		startDate.setMonth(0);
 		startDate.setFullYear(startDate.getFullYear() - (startDate.getFullYear()%10));
@@ -687,10 +698,10 @@ var datepicker = {
 	utils: {
 				
 		getZIndex: function getZIndex(e) {   
-            var z = window.document.defaultView.getComputedStyle(e).getPropertyValue('z-index');
-            if (isNaN(z) && e.parentNode != null && e.parentNode != document) return getZIndex(e.parentNode);
-            return z;
-        },
+			var z = window.document.defaultView.getComputedStyle(e).getPropertyValue('z-index');
+			if (isNaN(z) && e.parentNode != null && e.parentNode != document) return getZIndex(e.parentNode);
+			return z;
+		},
 				
 		getFirstDayOfTheMonth: function getFirstDayOfTheMonth(d) {
 			const first = new Date(d);
