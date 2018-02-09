@@ -21,7 +21,8 @@ var datepicker = {
 		darkMode: false,
 		compact: false,
 		selectedDateColor: 'gold',
-		onDateSelect: null,
+        	onDateSelect: null,
+        	onCalendarClose: null,
 		enableDateParsing: true,
 		attachToElement: null,
 		wrapInputElem: true,
@@ -83,7 +84,10 @@ var datepicker = {
 			}
 			if(options.onDateSelect) {
 				this.options.onDateSelect = options.onDateSelect;
-			}
+            		}
+            if (options.onCalendarClose) {
+                this.options.onCalendarClose = options.onCalendarClose;
+            }
 			if(options.enableDateParsing != undefined) {
 				this.options.enableDateParsing = options.enableDateParsing;
 			}
@@ -324,7 +328,11 @@ var datepicker = {
 	closeCalendar: function closeCalendar(event) {
 		if(!(this.inputInFocus || this.datepickerInFocus) && (this.datepicker && this.datepicker.parentNode)) {
 			this.datepicker.parentNode.removeChild(this.datepicker);
-		}	
+        }	
+
+        if (this.options.onCalendarClose) {
+            this.options.onCalendarClose();
+        }
 	},
 		
 	generateMonthHtml: function generateMonthHtml(dates, selectedDate) {
@@ -623,8 +631,12 @@ var datepicker = {
 		}
 		
 		this.updateCalendar(date);
-		if(this.options.hideCalendarOnSelect && !keepOpen)
-			this.datepicker.parentNode.removeChild(this.datepicker);
+        if (this.options.hideCalendarOnSelect && !keepOpen) {
+            this.datepicker.parentNode.removeChild(this.datepicker);
+            if (this.options.onCalendarClose) {
+                this.options.onCalendarClose();
+            }
+        }
 		
 		if(this.options.onDateSelect) {
 			this.options.onDateSelect(event, date);
