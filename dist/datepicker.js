@@ -185,7 +185,7 @@ var datepicker = {
 		this.inputElem.addEventListener('input', function(event) {
 			if (_this.options.enableDateParsing) {
 				let parts = _this.inputElem.value.split('/');
-				let guess = _this.options.defaultDate;
+				let guess = new Date(_this.options.defaultDate);
 				
 				if(parts[0] != undefined && parts[0] != '' && !isNaN(parts[0])) {
 					let month = parseInt(parts[0]);
