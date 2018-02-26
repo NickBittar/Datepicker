@@ -328,11 +328,11 @@ var datepicker = {
 	closeCalendar: function closeCalendar(event) {
 		if(!(this.inputInFocus || this.datepickerInFocus) && (this.datepicker && this.datepicker.parentNode)) {
 			this.datepicker.parentNode.removeChild(this.datepicker);
-        }	
 
-        if (this.options.onCalendarClose) {
-            this.options.onCalendarClose();
-        }
+			if (this.options.onCalendarClose) {
+				this.options.onCalendarClose();
+			}
+		}
 	},
 		
 	generateMonthHtml: function generateMonthHtml(dates, selectedDate) {
