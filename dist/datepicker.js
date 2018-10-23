@@ -183,7 +183,7 @@ var datepicker = {
 		// });
 		
 		this.inputElem.addEventListener('keyup', function(event) {
-			if (_this.options.enableDateParsing) {
+			if (_this.options.enableDateParsing && !_this.inputElem.disabled && !_this.inputElem.readOnly) {
 				let parts = _this.inputElem.value.split('/');
 				let guess = new Date(_this.options.defaultDate);
 				
