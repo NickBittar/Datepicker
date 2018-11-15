@@ -1,4 +1,13 @@
 {
   "name": "ncb-datepicker",
-  "version": "1.7.4"
+  "version": "1.7.4",
+  "keywords": ["datepicker", "date-picker", "date picker", "ncb-datepicker", "ncb", "js", "dependency free"],
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/NickBittar/Datepicker.git"
+    },
+  "bugs": {
+    "url": "https://github.com/NickBittar/Datepicker/issues"
+  },
+  "homepage": "https://github.com/NickBittar/Datepicker"
 }
